@@ -1,7 +1,7 @@
 # Create EC2 Instance and Install Docker
 
 Create an EC2 Instance and Install Docker on it. 
-This is going to be used as a server where all the services can be run locally.
+This is going to be used as a build server where all the services can be run locally.
 
 ## Step-1: Create an EC2 Instance
 
@@ -32,17 +32,21 @@ This is going to be used as a server where all the services can be run locally.
 
     Logout and reconnect to apply docker group permissions.
 
-4. Test if Docker installed correctly by running a Hello-world container.
+4. Optional: Test if Docker installed correctly by running a Hello-world container.
 
     ```bash
     docker version
+
+    # check for existing images
     docker images
+
+    # use a simple image to run a container
     docker run hello-world
     docker images
     docker ps -a
     ```
 
-5. Remove the container and image.
+5. Optional: Remove the container and image.
 
     ```bash
     docker rm $(docker ps -aq)

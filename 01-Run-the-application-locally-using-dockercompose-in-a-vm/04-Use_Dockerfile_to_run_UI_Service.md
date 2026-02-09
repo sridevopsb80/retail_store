@@ -33,6 +33,8 @@ Go to the folder with the Dockerfile for UI service and build the image there.
 
     ```bash
     cd retail-store-sample-app-1.2.4/src/ui
+
+    # clear all build cache and build image
     docker builder prune --all
     docker build -t retail-ui:9.0.0 .
     ```
