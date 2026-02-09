@@ -1,5 +1,8 @@
 # Create EC2 Instance and Install Docker
 
+Create an EC2 Instance and Install Docker on it. 
+This is going to be used as a server where all the services can be run locally.
+
 ## Step-1: Create an EC2 Instance
 
 1. Create an EC2 instance with the following Configuration:
