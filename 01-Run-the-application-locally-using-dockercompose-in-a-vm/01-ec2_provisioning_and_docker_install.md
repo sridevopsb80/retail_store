@@ -29,7 +29,6 @@ This is going to be used as a build server where all the services can be run loc
     sudo systemctl start docker
     sudo usermod -aG docker ec2-user
     ```
-
     Logout and reconnect to apply docker group permissions.
 
 4. Optional: Test if Docker installed correctly by running a Hello-world container.
