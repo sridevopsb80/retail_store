@@ -1,8 +1,8 @@
 # Resouruce Block: Random String
 resource "random_string" "suffix" {
-  length = 6
+  length  = 6
   special = false
-  upper = false
+  upper   = false
 }
 
 # Define aws S3 bucket that is to be used for backend
@@ -39,7 +39,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tfstate_encryptio
 
 # Block public access
 resource "aws_s3_bucket_public_access_block" "tfstate_block_public" {
-  bucket = aws_s3_bucket.tfstate_bucket.id
+  bucket                  = aws_s3_bucket.tfstate_bucket.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
