@@ -7,4 +7,3 @@ data "aws_availability_zones" "available" {
 # https://developer.hashicorp.com/terraform/language/functions/slice 
 
 
-

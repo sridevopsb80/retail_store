@@ -36,7 +36,7 @@ resource "aws_subnet" "public" {
 
 ## Resource-4: Private Subnets
 resource "aws_subnet" "private" {
-  for_each = { for index, az in local.azs : az => local.public_subnets[index] }
+  for_each = { for index, az in local.azs : az => local.private_subnets[index] }
   vpc_id            = aws_vpc.main.id
   cidr_block        = each.value
   availability_zone = each.key

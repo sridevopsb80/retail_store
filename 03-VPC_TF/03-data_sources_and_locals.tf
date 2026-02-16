@@ -8,10 +8,16 @@ data "aws_availability_zones" "available" {
 # https://developer.hashicorp.com/terraform/language/functions/slice 
 
 # Locals Block
+# locals {
+#   azs             = slice(data.aws_availability_zones.available.names, 0, 3)
+#   public_subnets  = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k+1)]
+#   private_subnets = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k + 11)]
+# }
+
 locals {
   azs             = slice(data.aws_availability_zones.available.names, 0, 3)
-  public_subnets  = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k+1)]
-  private_subnets = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k + 11)]
+  public_subnets  = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k)]
+  private_subnets = [for k, az in local.azs : cidrsubnet(var.vpc_cidr, var.subnet_newbits, k + 10)]
 }
 
 # cidrsubnet - Terraform function used to calculate subnet CIDR blocks from VPC CIDR 
