@@ -9,7 +9,7 @@ terraform {
   # Remote Backend
   backend "s3" {
     bucket       = "tfstate-dev-us-east-1-zfwwag" #s3 bucket created from 02 folder
-    key          = "vpc/dev/terraform.tfstate"    #define where you want tfstate to be stored
+    key          = "dev/vpc/terraform.tfstate"    #define where you want tfstate to be stored
     region       = "us-east-1"
     encrypt      = true
     use_lockfile = true #enable state locking
