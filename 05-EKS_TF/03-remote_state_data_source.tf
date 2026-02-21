@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------
-# Reference the Remote State from VPC
+# Reference the Remote State from VPC module
 # --------------------------------------------------------------------
 data "terraform_remote_state" "vpc" {
   backend = "s3"
@@ -11,26 +11,25 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-# Reference outputs from that state
+
 
 # --------------------------------------------------------------------
-# Output the VPC ID from the remote VPC state
+# Reference outputs from the remote VPC state
 # --------------------------------------------------------------------
+
+# VPC ID 
 output "vpc_id" {
   value = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
-# --------------------------------------------------------------------
-# Output the list of private subnets from the VPC
-# --------------------------------------------------------------------
+# List of private subnets from VPC
+
 output "private_subnet_ids" {
   value = data.terraform_remote_state.vpc.outputs.private_subnet_ids
 }
 
+# List of public subnets from VPC
 
-# --------------------------------------------------------------------
-# Output the list of public subnets from the VPC
-# --------------------------------------------------------------------
 output "public_subnet_ids" {
   value = data.terraform_remote_state.vpc.outputs.public_subnet_ids
 }

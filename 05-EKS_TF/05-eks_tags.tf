@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------
-# Public Subnet Tags for EKS Load Balancer Support
+# Public Subnet Tags for EKS Load Balancer
 # -------------------------------------------------------------------
 
 resource "aws_ec2_tag" "eks_subnet_tag_public_elb" {
@@ -17,7 +17,7 @@ resource "aws_ec2_tag" "eks_subnet_tag_public_cluster" {
 }
 
 # -------------------------------------------------------------------
-# Private Subnet Tags for EKS Internal LoadBalancer Support
+# Private Subnet Tags for EKS Internal LoadBalancer
 # -------------------------------------------------------------------
 
 resource "aws_ec2_tag" "eks_subnet_tag_private_elb" {

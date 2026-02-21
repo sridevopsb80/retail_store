@@ -1,5 +1,5 @@
 # --------------------------------------------------------
-# AWS Region (used in provider block)
+# AWS Region 
 # --------------------------------------------------------
 variable "aws_region" {
   description = "AWS region to deploy resources"
@@ -11,16 +11,15 @@ variable "aws_region" {
 # Environment Info
 # --------------------------------------------------------
 
-# Logical environment name (used in tags and resource names)
 variable "environment_name" {
   description = "Environment name used in resource names and tags"
   type        = string
   default     = "dev"
 }
 
-# Business unit or department (used in tags and naming)
+# Business unit or department info
 variable "business_division" {
-  description = "Business Division in the large organization this infrastructure belongs to"
+  description = "Business Division in the organization this infrastructure belongs to"
   type        = string
   default     = "retail"
 }
@@ -29,43 +28,43 @@ variable "business_division" {
 # EKS Cluster Configuration
 # --------------------------------------------------------
 
-# Name of the EKS cluster (used in names, tags, and references)
+# Name of the EKS cluster 
 variable "cluster_name" {
-  description = "Name of the EKS cluster. Also used as a prefix in names of related resources."
+  description = "Name of the EKS cluster. To be used as a prefix in names of related resources."
   type        = string
   default     = "eks"
 }
 
 # Kubernetes version for the EKS control plane
 variable "cluster_version" {
-  description = "Kubernetes minor version to use for the EKS cluster (e.g. 1.28, 1.29). Leave it as null to use AWS default"
+  description = "Leave it as null to use AWS default"
   type        = string
   default     = null 
 }
 
 # CIDR block used for Kubernetes service networking
 variable "cluster_service_ipv4_cidr" {
-  description = "Service CIDR range for Kubernetes services. Optional - leave it as null to use AWS default."
+  description = "CIDR range for Kubernetes services communication. Leave it as null to use AWS default."
   type        = string
   default     = null
 }
 
 # Disable access to the EKS API via private endpoint - enable in prod
 variable "cluster_endpoint_private_access" {
-  description = "Disable private access to EKS control plane endpoint (kubeapi)"
+  description = "Disable private access to EKS control plane endpoint (kubeapi server)"
   type        = bool
   default     = false
 }
 
 # Enable access to the EKS API via public endpoint - disable in prod
 variable "cluster_endpoint_public_access" {
-  description = "Enable public access to EKS control plane endpoint (kubeapi)"
+  description = "Enable public access to EKS control plane endpoint (kubeapi server)"
   type        = bool
   default     = true
 }
 
-# List of CIDRs allowed to reach the public EKS API endpoint from public internet - narrow this down to 
-# specific IPs or subnet ranges for prod as needed
+# List of CIDRs allowed to reach the public EKS API endpoint from public internet
+# narrow this down to specific IPs or subnet ranges for prod as needed
 
 variable "cluster_endpoint_public_access_cidrs" {
   description = "List of CIDR blocks allowed to access public EKS endpoint"
@@ -74,10 +73,9 @@ variable "cluster_endpoint_public_access_cidrs" {
 }
 
 # --------------------------------------------------------
-# Common Tags
+# Tags applied to all resources created by this configuration
 # --------------------------------------------------------
 
-# Tags applied to all resources created by this configuration
 variable "tags" {
   description = "Tags to apply to EKS and related resources"
   type        = map(string)
