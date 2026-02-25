@@ -1,6 +1,5 @@
 # --------------------------------------------------------------------
 # Local values used throughout the EKS configuration
-# Helps enforce naming consistency and reduce duplication
 # --------------------------------------------------------------------
 locals {
 
