@@ -39,14 +39,14 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "Leave it as null to use AWS default"
   type        = string
-  default     = null 
+  default     = null # AWS sets the default value
 }
 
 # CIDR block used for Kubernetes service networking
 variable "cluster_service_ipv4_cidr" {
   description = "CIDR range for Kubernetes services communication. Leave it as null to use AWS default."
   type        = string
-  default     = null
+  default     = null # AWS sets the default value
 }
 
 # Disable access to the EKS API via private endpoint - enable in prod
@@ -64,7 +64,7 @@ variable "cluster_endpoint_public_access" {
 }
 
 # List of CIDRs allowed to reach the public EKS API endpoint from public internet
-# narrow this down to specific IPs or subnet ranges for prod as needed
+# Narrow this down to specific IPs or subnet ranges for prod as needed
 
 variable "cluster_endpoint_public_access_cidrs" {
   description = "List of CIDR blocks allowed to access public EKS endpoint"
@@ -79,7 +79,7 @@ variable "cluster_endpoint_public_access_cidrs" {
 variable "tags" {
   description = "Tags to apply to EKS and related resources"
   type        = map(string)
-  default     = {
+  default = {
     Terraform = "true"
     Owner     = "DevOps Team"
   }

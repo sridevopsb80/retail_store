@@ -1,3 +1,8 @@
+# Toset function - https://developer.hashicorp.com/terraform/language/functions/toset
+# Used to convert list to a set
+# Output of data.terraform_remote_state.vpc.outputs is a list
+# for_each only accepts map or set, so toset function is used to convert list to set
+
 # -------------------------------------------------------------------
 # Public Subnet Tags for EKS Load Balancer
 # -------------------------------------------------------------------

@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # IAM Role for EKS Control Plane
-# This role is assumed by the EKS service to manage the control plane resources
+# Required so the EKS control plane can manage AWS infrastructure resources
+# (networking, security groups, ENIs, load balancers, etc.)
 # ------------------------------------------------------------------------------
 resource "aws_iam_role" "eks_cluster" {
   name = "${local.name}-eks-cluster-role"
@@ -9,8 +10,8 @@ resource "aws_iam_role" "eks_cluster" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Action    = "sts:AssumeRole",
-      Effect    = "Allow",
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
       Principal = {
         Service = "eks.amazonaws.com"
       }
@@ -21,7 +22,8 @@ resource "aws_iam_role" "eks_cluster" {
 }
 
 # ------------------------------------------------------------------------------
-# Attach AmazonEKSClusterPolicy policy for EKS to manage cluster control plane
+# Attach AmazonEKSClusterPolicy
+# Grants EKS permissions to manage required AWS infrastructure resources
 # ------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster.name
@@ -29,7 +31,9 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 # ------------------------------------------------------------------------------
-# Attach VPC Resource Controller policy for advanced networking, Fargate, and Karpenter support
+# Attach AmazonEKSVPCResourceController
+# Enables advanced VPC networking features such as security groups for pods
+# and enhanced ENI/IP management
 # ------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller" {
   role       = aws_iam_role.eks_cluster.name

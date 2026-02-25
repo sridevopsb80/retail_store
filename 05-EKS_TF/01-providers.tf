@@ -9,8 +9,8 @@ terraform {
   }
 
   # Remote backend configuration using S3 
-    backend "s3" {
-    bucket       = "tfstate-dev-us-east-1-zfwwag" #s3 bucket created from 02 folder
+  backend "s3" {
+    bucket       = "tfstate-dev-us-east-1-zfwwag" #s3 bucket created from 02-S3_backend folder
     key          = "dev/eks/terraform.tfstate"    #path in s3 where tfstate is to be stored
     region       = "us-east-1"
     encrypt      = true
