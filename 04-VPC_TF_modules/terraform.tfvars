@@ -12,7 +12,6 @@ subnet_newbits = 8
 tags = {
   Terraform = "true"
   Project   = "retail-store"
-  Owner     = "Kalyan Reddy Daida"
-  Course    = "DevOps Real-world Implementation Project on AWS Cloud"
+  Owner     = "DevOps"
   Demo      = "VPC with Remote Backend Demo"
 }
