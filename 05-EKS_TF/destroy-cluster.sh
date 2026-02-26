@@ -4,7 +4,6 @@ set -e
 echo "==============================="
 echo "STEP-1: Destroy EKS Cluster"
 echo "==============================="
-cd 02_EKS_terraform-manifests
 terraform destroy -auto-approve
 
 echo
@@ -15,7 +14,7 @@ echo
 echo "==============================="
 echo "STEP-2: Destroy VPC"
 echo "==============================="
-cd ../01_VPC_terraform-manifests
+cd ../04-VPC_TF_modules
 terraform destroy -auto-approve
 
 echo

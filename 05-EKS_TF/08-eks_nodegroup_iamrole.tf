@@ -1,8 +1,11 @@
+# The role and policies defined here give EKS worker nodes (every EC2 instance in the group)
+# the minimum permissions to pull images from ECR, log to CloudWatch, join the cluster, 
+# attach EBS volumes, and handle VPC networking—without broader access. 
+# Additional custom policies can be layered on as needed.
+
+
 # ------------------------------------------------------------------------------
-# IAM Role for EKS Managed Node Group (EC2 Worker Nodes)
-# This role will be assumed by EC2 instances launched in the node group
-# Creates an IAM role that EC2 instances in your EKS node group 
-# are allowed to assume, so they can interact with AWS services securely
+# IAM Role for EC2 nodes in EKS Managed Node Group (EC2 Worker Nodes)
 # ------------------------------------------------------------------------------
 resource "aws_iam_role" "eks_nodegroup_role" {
   name = "${local.name}-eks-nodegroup-role"
@@ -24,7 +27,7 @@ resource "aws_iam_role" "eks_nodegroup_role" {
 
 # ------------------------------------------------------------------------------
 # IAM Policy Attachment: AmazonEKSWorkerNodePolicy
-# Grants basic node group access to the EKS cluster
+# Grants node group access to the EKS cluster
 # ------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
   role       = aws_iam_role.eks_nodegroup_role.name

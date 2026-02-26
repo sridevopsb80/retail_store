@@ -4,7 +4,7 @@ environment_name = "dev"
 business_division = "retail"
 
 # EKS Cluster 
-cluster_name = "eksdemo1"
+cluster_name = "eks"
 cluster_service_ipv4_cidr = "172.20.0.0/16"
 cluster_version = "1.34"
 
