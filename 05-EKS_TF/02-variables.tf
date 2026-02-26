@@ -39,14 +39,14 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "Leave it as null to use AWS default"
   type        = string
-  default     = null # AWS sets the default value
+  default     = null # AWS sets the default value unless tfvars overwrites
 }
 
 # CIDR block used for Kubernetes service networking
 variable "cluster_service_ipv4_cidr" {
   description = "CIDR range for Kubernetes services communication. Leave it as null to use AWS default."
   type        = string
-  default     = null # AWS sets the default value
+  default     = null # AWS sets the default value unless tfvars overwrites
 }
 
 # Disable access to the EKS API via private endpoint - enable in prod

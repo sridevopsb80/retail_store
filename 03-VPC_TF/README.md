@@ -11,3 +11,7 @@ It creates:
 - 1 NAT Gateway,
 - Elastic IP for NAT Gateway,
 - Route tables and its associations.
+
+![VPC Resource map](../images/aws-vpc-resource-map.png)
+
+
