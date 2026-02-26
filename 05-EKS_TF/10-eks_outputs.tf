@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# Output the EKS Cluster API server endpoint
+# EKS Cluster API server endpoint
 # Used by kubectl and external tools to communicate with the cluster
 # ------------------------------------------------------------------------------
 output "eks_cluster_endpoint" {
@@ -8,18 +8,16 @@ output "eks_cluster_endpoint" {
 }
 
 # ------------------------------------------------------------------------------
-# Output the EKS Cluster ID
+# EKS Cluster ID
 # Used in AWS CLI commands and automation scripts to reference the EKS cluster
 # ------------------------------------------------------------------------------
 output "eks_cluster_id" {
-  description = "The name/id of the EKS cluster."
+  description = "The name/id of the EKS cluster"
   value       = aws_eks_cluster.main.id
 }
 
 # ------------------------------------------------------------------------------
-# Output the EKS Cluster Version
-# Helpful for students to use this version in other EKS projects 
-# to find supported EKS Addons based on EKS cluster version
+# EKS Cluster Version
 # ------------------------------------------------------------------------------
 output "eks_cluster_version" {
   description = "EKS Kubernetes version"
@@ -27,7 +25,7 @@ output "eks_cluster_version" {
 }
 
 # ------------------------------------------------------------------------------
-# Output the name of the EKS cluster
+# Name of the EKS cluster
 # Helpful for scripting, `aws eks update-kubeconfig`, etc.
 # ------------------------------------------------------------------------------
 output "eks_cluster_name" {
@@ -37,7 +35,7 @@ output "eks_cluster_name" {
 
 
 # ------------------------------------------------------------------------------
-# Output the EKS Cluster Certificate Authority data
+# EKS Cluster Certificate Authority data
 # Needed when setting up kubeconfig or accessing EKS via API
 # ------------------------------------------------------------------------------
 output "eks_cluster_certificate_authority_data" {
@@ -46,7 +44,7 @@ output "eks_cluster_certificate_authority_data" {
 }
 
 # ------------------------------------------------------------------------------
-# Output the logical name of the private node group
+# Logical name of the private node group
 # Useful for autoscaler configs, dashboards, tagging
 # ------------------------------------------------------------------------------
 output "private_node_group_name" {
@@ -55,7 +53,7 @@ output "private_node_group_name" {
 }
 
 # ------------------------------------------------------------------------------
-# Output the IAM Role ARN used by the EKS Node Group
+# IAM Role ARN used by the EKS Node Group
 # Useful for IRSA setup or attaching additional permissions
 # ------------------------------------------------------------------------------
 output "eks_node_instance_role_arn" {
@@ -64,8 +62,8 @@ output "eks_node_instance_role_arn" {
 }
 
 # ------------------------------------------------------------------------------
-# Output command to configure kubectl for this EKS cluster
-# Helpful for students to run directly after apply
+# Command to configure kubectl for this EKS cluster
+# Run directly after apply
 # ------------------------------------------------------------------------------
 output "to_configure_kubectl" {
   description = "Command to update local kubeconfig to connect to the EKS cluster"
