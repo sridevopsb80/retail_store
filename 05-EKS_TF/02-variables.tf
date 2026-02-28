@@ -36,17 +36,19 @@ variable "cluster_name" {
 }
 
 # Kubernetes version for the EKS control plane
+# AWS sets the default value unless tfvars overwrites
 variable "cluster_version" {
   description = "Leave it as null to use AWS default"
   type        = string
-  default     = null # AWS sets the default value unless tfvars overwrites
+  default     = null 
 }
 
 # CIDR block used for Kubernetes service networking
+# AWS sets the default value unless tfvars overwrites
 variable "cluster_service_ipv4_cidr" {
   description = "CIDR range for Kubernetes services communication. Leave it as null to use AWS default."
   type        = string
-  default     = null # AWS sets the default value unless tfvars overwrites
+  default     = null 
 }
 
 # Disable access to the EKS API via private endpoint - enable in prod
