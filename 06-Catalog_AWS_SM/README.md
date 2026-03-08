@@ -1,50 +1,15 @@
-# Creating EKS Cluster 
-
-This section will be used to create an EKS cluster. 
-Ensure that S3 is configured as backend and the underlying VPC architecture is already provisioned before creating EKS cluster.
-
-## Steps to Provision manually
-
-```bash
-# Terraform Initialize
-terraform init
-
-# Terraform Validate
-terraform validate
-
-# Terraform Plan
-terraform plan
-
-# Terraform Apply
-terraform apply
-```
-
-## Use shell script
-
-Alternatively, execute scripts/create-cluster.sh script to create VPC and EKS cluster.
-
-## Configure kubectl cli to access EKS cluster
-
-After the EKS Cluster is created, get the "to_configure_kubectl" value from the output. This gives the command which should enable you to connect to your cluster.
-
-![Before configuration](../images/before-configuring-kubectl.png)
-
-![To configure](../images/to-configure-kubectl.png)
-
-```bash
-# EKS kubeconfig
-aws eks update-kubeconfig --name <cluster_name> --region <aws_region>
-```
-![After configuration](../images/after-configuring-kubectl.png)
-
-```bash
-# List Kubernetes Nodes
-kubectl get nodes
-
-# List Kubernetes Pods 
-kubectl get pods -n kube-system
-```
 # Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
+
+Ensure that VPC and EKS are already provisioned. Use create_cluster script to provision them if they have not been provisioned already. 
+
+In this section, we are going to deploy Catalog microservice, which:
+
+- contains a deployment that manages the application pods,
+- contains a statefulset that manages the DB pods,
+- uses AWS Secret Manager to manage secrets,
+- does not use persistent storage. 
+
+Later, this will be migrated to AWS RDS MySQL database and EBS.
 
 ## Step 1: Create EKS Pod Identity Agent
 
@@ -84,6 +49,18 @@ Run [PIA script](scripts/pod_identity_association.sh).
 
 We will securely connect AWS Secrets Manager with Catalog microservice pods so that credentials to MySQL DB can be shared. In this zero-trust setup, credentials are not stored in Kubernetes Secrets and are fetched dynamically via ASCP.
 
+## Step 7: Create AWS Secret in Secrets Manager
+
+Run [Connect_AWS_SM_and_Catalog script](scripts/Connect_AWS_SM_and_Catalog.sh). 
+
+- Create the secret with MySQL credentials in AWS Secret Manager, 
+- Define a SecretProviderClass that retrieves this secret using EKS Pod Identity,
+- Update both the MySQL StatefulSet and Catalog Deployment to mount and use these secrets,
+- Retrieve Secret from AWS Secret Manager without storing Kubernetes Secrets in etcd minimizing risk of exposing secrets if the cluster is ever compromised.
+
+## Step 8: Cleanup
+
+Run [Cleanup script](scripts/cleanup_catalog.sh). 
 
 
 
