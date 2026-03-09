@@ -17,11 +17,13 @@ Ensure that VPC and EKS are already provisioned. Use create_cluster script to pr
 
 Pod Identity Agent is deployed as a daemonset. It will run on every node and provide pods running in those nodes with the access they need.
 
+Run [PIA script](scripts/pia.sh) to create Pod Identity Agent addon for the EKS Cluster. 
+
+Manual Steps:
+
 * Go to AWS Console -> EKS -> Clusters -> Get Add ons -> Locate Pod Identity Agent plugin -> choose and leave default options -> click on Create.
 
-* Use kubectl get ds command to verify the agent was installed.
-
-This section will be done manually for verification.
+* Use kubectl get ds -n kube-system command to verify the agent was installed.
 
 ## Step 2: Install Helm locally and add helm repos for CSI Driver and AWS Provider plugin ASCP
 
@@ -61,4 +63,6 @@ Run [Connect_AWS_SM_and_Catalog script](scripts/Connect_AWS_SM_and_Catalog.sh).
 ## Step 8: Cleanup
 
 Run [Cleanup script](scripts/cleanup_catalog.sh). 
+
+Run [Destroy Cluster script](scripts/destroy_cluster.sh) to destroy EKS and VPC.
 

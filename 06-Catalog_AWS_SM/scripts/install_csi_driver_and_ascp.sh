@@ -1,5 +1,5 @@
 echo "==============================="
-echo "STEP-1: Install the Secrets Store CSI Driver in the kube-system namespace"
+echo "Install the Secrets Store CSI Driver in the kube-system namespace"
 echo "==============================="
 
 echo
@@ -19,7 +19,7 @@ echo " Verifying installation status of CSI driver "
 helm status csi-secrets-store -n kube-system
 
 echo "==============================="
-echo "STEP-2: Install AWS Secrets Manager CSI Driver Provider in the kube-system namespace"
+echo "Install AWS Secrets Manager CSI Driver Provider in the kube-system namespace"
 echo "==============================="
 
 echo
