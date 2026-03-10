@@ -66,10 +66,33 @@ Run [Connect_AWS_SM_and_Catalog script](scripts/Connect_AWS_SM_and_Catalog.sh).
 
 Create a Pod and use it as a client to connect to MySQL DB
 
+Option 1: Let MySQL prompt you
+
+Run a Pod:
+
+```bash
+kubectl run mysql-client \
+  --rm -it \
+  --restart=Never \
+  --image=mysql:8.0 \
+  -- bash
+```
+
+When inside the pod:
+
+```bash
+  mysql -h catalog-mysql -u catalog_user -p
+```
+
+Option 2: Use Environment variable
+
+```bash
 kubectl run mysql-client --rm -it \
   --image=mysql:8.0 \
   --restart=Never \
-  -- mysql -h catalog-mysql -u mydbadmin -p mysqldb101
+  --env MYSQL_PWD=yourpassword \
+  -- mysql -h catalog-mysql -u catalog_user
+```
 
 Run SQL Commands
 

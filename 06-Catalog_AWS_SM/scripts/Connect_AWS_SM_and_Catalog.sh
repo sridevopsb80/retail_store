@@ -89,22 +89,3 @@ kubectl apply -f ../catalog_k8s_manifests/
 # # List Pods
 # kubectl get pods
 
-echo
-echo " Connect to MySQL Database and Verify "
-
-# Connect to MySQL Database using MySQL Client Pod
-kubectl run mysql-client --rm -it \
-  --image=mysql:8.0 \
-  --restart=Never \
-  -- mysql -h catalog-mysql -u mydbadmin -p mysqldb101
-
-# Run SQL Commands
-
-SHOW DATABASES;
-USE catalogdb;
-SHOW TABLES;
-SELECT * FROM products;
-SELECT * FROM tags;
-SELECT * FROM product_tags;
-EXIT;
-
