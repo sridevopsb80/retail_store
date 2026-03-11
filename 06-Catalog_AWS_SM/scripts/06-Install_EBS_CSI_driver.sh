@@ -22,6 +22,7 @@ echo "Creating Trust Policy file"
 echo "==============================="
 
 # Create Trust Policy file
+# Lets EKS Pods (via Pod Identity Agent) assume the role
 
 cd ../iam-policy-json-files
 
@@ -47,7 +48,7 @@ echo
 echo " Done "
 
 echo "==============================="
-echo "Create IAM Role and Attach Policy"
+echo "Create IAM Role and Attach AmazonEBSCSIDriverPolicy Policy"
 echo "==============================="
 
 echo 
@@ -71,7 +72,7 @@ echo
 echo " Done "
 
 echo 
-echo " Listing IAM Policies attached to Role  "
+echo " Listing IAM Policies attached to Role for verification  "
 # 
 aws iam list-attached-role-policies \
   --role-name AmazonEKS_EBS_CSI_DriverRole_${EKS_CLUSTER_NAME}
@@ -99,7 +100,7 @@ echo " Listing existing EKS add-ons  "
 aws eks list-addons --cluster-name ${EKS_CLUSTER_NAME}
 
 echo 
-echo " Installing EKS EBS CSI Addon  "
+echo " Installing EKS EBS CSI Addon and associate it with the IAM Role created earlier"
 
 aws eks create-addon \
   --cluster-name ${EKS_CLUSTER_NAME} \
@@ -109,19 +110,21 @@ aws eks create-addon \
 echo 
 echo " Done "
 
-# Verify Installation
+echo 
+echo " Verify Installation "
 
 # List EKS add-ons (after install)
 aws eks list-addons --cluster-name ${EKS_CLUSTER_NAME}
 
-# Describe Addon - Verify Status
-aws eks describe-addon \
-  --cluster-name ${EKS_CLUSTER_NAME} \
-  --addon-name aws-ebs-csi-driver \
-  --query "addon.status" --output text
+
+# # Describe Addon - Verify Status
+# aws eks describe-addon \
+#   --cluster-name ${EKS_CLUSTER_NAME} \
+#   --addon-name aws-ebs-csi-driver \
+#   --query "addon.status" --output text
 
 
 
-kubectl get pods -n kube-system | grep ebs-csi
-kubectl get ds   -n kube-system | grep ebs-csi
-kubectl get deploy -n kube-system | grep ebs-csi
+# kubectl get pods -n kube-system | grep ebs-csi
+# kubectl get ds   -n kube-system | grep ebs-csi
+# kubectl get deploy -n kube-system | grep ebs-csi

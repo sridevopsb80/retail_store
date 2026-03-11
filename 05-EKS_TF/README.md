@@ -3,7 +3,7 @@
 This section will be used to create an EKS cluster. 
 Ensure that S3 is configured as backend and the underlying VPC architecture is already provisioned before creating EKS cluster.
 
-## Steps to Provision manually
+### Steps to Provision manually
 
 ```bash
 # Terraform Initialize
@@ -44,9 +44,9 @@ kubectl get nodes
 # List Kubernetes Pods 
 kubectl get pods -n kube-system
 ```
-# Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
+## Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
 
-## Step 1: Create EKS Pod Identity Agent
+### Step 1: Create EKS Pod Identity Agent
 
 Pod Identity Agent is deployed as a daemonset. It will run on every node and provide pods running in those nodes with the access they need.
 
@@ -56,7 +56,7 @@ Pod Identity Agent is deployed as a daemonset. It will run on every node and pro
 
 This section will be done manually for verification.
 
-## Step 2: Install Helm locally and add helm repos for CSI Driver and AWS Provider plugin ASCP
+### Step 2: Install Helm locally and add helm repos for CSI Driver and AWS Provider plugin ASCP
 
 [Ensure that Helm CLI is installed.](https://helm.sh/docs/intro/install/)
 
@@ -68,19 +68,19 @@ Secrets Store CSI Driver - Kubernetes driver that allows pods to mount secrets f
 
 AWS Secrets and Configuration Provider (ASCP): AWS provider plugin for the CSI driver. CSI driver itself doesn't know how to talk to secret systems.  It needs a provider plugin so that it can fetch secrets from AWS Secrets Manager.
 
-## Step 3: Install the Secrets Store CSI Driver and ASCP using Helm in EKS kube-system namespace 
+### Step 3: Install the Secrets Store CSI Driver and ASCP using Helm in EKS kube-system namespace 
 
 Run [Script to install CSI driver and ASCP to kube-system namespace in EKS Cluster](scripts/install_csi_driver_and_ascp.sh).
 
-## Step 4: Create IAM Role, Policy and EKS Pod Identity Association
+### Step 4: Create IAM Role, Policy and EKS Pod Identity Association
 
 Run [IAM bash script](scripts/iam_role_and_policies.sh). This creates all necessary resources for **Catalog microservice only**.
 
-## Step 5: Create Pod Identity Association
+### Step 5: Create Pod Identity Association
 
 Run [PIA script](scripts/pod_identity_association.sh). 
 
-## Step 6: Connect AWS Secrets Manager with Kubernetes Pods 
+### Step 6: Connect AWS Secrets Manager with Kubernetes Pods 
 
 We will securely connect AWS Secrets Manager with Catalog microservice pods so that credentials to MySQL DB can be shared. In this zero-trust setup, credentials are not stored in Kubernetes Secrets and are fetched dynamically via ASCP.
 
@@ -107,9 +107,9 @@ We will securely connect AWS Secrets Manager with Catalog microservice pods so t
 2. Info on the Namespace where the workload is running
 3. Service Account
 
-## Steps involved:
+### Steps involved:
 
-### Step 1: Create a Pod and a Service Account 
+#### Step 1: Create a Pod and a Service Account 
 
 * We will create a pod (aws cli pod) and deploy it in eks cluster default namespace. This pod will be used to test access to S3 using ```aws s3 list``` command. 
 
@@ -140,7 +140,7 @@ aws: [ERROR]: An error occurred (NoCredentials): Unable to locate credentials. Y
 command terminated with exit code 253
 ```
 
-### Step 2: Create eks Pod Identity Agent
+#### Step 2: Create eks Pod Identity Agent
 
 Pod Identity Agent is deployed as a daemonset. It will run on every node and provide pods running in those nodes with the access they need.
 
@@ -148,7 +148,7 @@ Pod Identity Agent is deployed as a daemonset. It will run on every node and pro
 
 * Use kubectl get ds command to verify the agent was installed.
 
-### Step 3: Create IAM Role
+#### Step 3: Create IAM Role
 
 * Go to AWS Console -> IAM -> Roles -> Create Role.
 
@@ -158,7 +158,7 @@ Pod Identity Agent is deployed as a daemonset. It will run on every node and pro
 
 * Name the role (EKS-PodIdentity-S3-ReadOnly-Role). Create Role.
 
-### Step 4: Associate IAM Role to EKS Cluster
+#### Step 4: Associate IAM Role to EKS Cluster
 
 * Go to AWS Console -> EKS -> Clusters -> Access -> Pod Identity Association -> Click on Create. 
 
@@ -166,7 +166,7 @@ Pod Identity Agent is deployed as a daemonset. It will run on every node and pro
 
 * Go to AWS Console -> EKS -> Clusters -> Access -> Pod Identity Association. Check if the entry has been added.
 
-### Step 5: Recreate pods
+#### Step 5: Recreate pods
 
 Pods do not automatically refresh credentials after Pod Identity Association is added. Delete and recreate pods.
 ```bash
@@ -179,7 +179,7 @@ Verify if the pods can list S3 now.
 kubectl exec -it aws-cli -- aws s3 ls
 ```
 
-### Step 6: Cleanup
+#### Step 6: Cleanup
 
 * Delete the pod and the Service Account.
 ```bash

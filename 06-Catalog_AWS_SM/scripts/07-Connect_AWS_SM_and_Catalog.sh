@@ -19,6 +19,18 @@ aws secretsmanager create-secret \
       "MYSQL_PASSWORD": "mysqldb101"
   }'
 
+echo "==============================="
+echo "Create the SecretProviderClass"
+echo "==============================="
+
+kubectl apply -f ../secretproviderclass/01_catalog_secretproviderclass.yaml
+
+
+echo "==============================="
+echo "Apply Catalog manifests"
+echo "==============================="
+
+kubectl apply -f ../catalog_k8s_manifests/
 
 #########################
 # Verification steps - Enable if necessary
@@ -52,19 +64,6 @@ aws secretsmanager create-secret \
 #   --secret-id catalog-db-secret-1 \
 #   --region $AWS_REGION \
 #   --query SecretString --output text
-
-echo "==============================="
-echo "Create the SecretProviderClass"
-echo "==============================="
-
-kubectl apply -f ../secretproviderclass/01_catalog_secretproviderclass.yaml
-
-
-echo "==============================="
-echo "Apply Catalog manifests"
-echo "==============================="
-
-kubectl apply -f ../catalog_k8s_manifests/
 
 # echo "==============================="
 # echo "Verification"
