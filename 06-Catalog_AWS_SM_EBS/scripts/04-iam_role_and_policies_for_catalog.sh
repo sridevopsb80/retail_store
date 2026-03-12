@@ -1,5 +1,5 @@
 echo "==============================="
-echo "STEP-1: Set environment variables "
+echo "Set environment variables "
 echo "==============================="
 
 export AWS_REGION="us-east-1"
@@ -12,7 +12,7 @@ echo $EKS_CLUSTER_NAME
 echo $AWS_ACCOUNT_ID
 
 echo "==============================="
-echo "STEP-2: Create IAM Permission Policy"
+echo "Create IAM Permission Policy"
 echo "==============================="
 
 echo
@@ -47,7 +47,7 @@ aws iam create-policy \
 
 
 echo "==============================="
-echo "STEP-3: Create Trust policy for Role Assumption"
+echo "Create Trust policy for Role Assumption"
 echo "==============================="
 
 echo
@@ -73,7 +73,7 @@ cat <<EOF > trust-policy.json
 EOF
 
 echo "==============================="
-echo "STEP-4: Create IAM Role for Pod Identity"
+echo "Create IAM Role for Pod Identity"
 echo "==============================="
 
 echo
@@ -85,7 +85,7 @@ aws iam create-role \
 
 
 echo "==============================="
-echo "STEP-4: Attach the IAM policy to IAM Role"
+echo "Attach the IAM policy to IAM Role"
 echo "==============================="
 
 echo
@@ -94,8 +94,11 @@ aws iam attach-role-policy \
   --role-name catalog-db-secrets-role \
   --policy-arn arn:aws:iam::${AWS_ACCOUNT_ID}:policy/catalog-db-secret-policy
 
-echo
-echo " Verifying attachment"
-# List Attached Policies to IAM Role
+
+echo "==============================="
+echo "Listing Attached Policies to IAM Role"
+echo "==============================="
+
+# Verify attachment
 aws iam list-attached-role-policies --role-name catalog-db-secrets-role
 
