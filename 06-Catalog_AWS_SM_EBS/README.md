@@ -17,7 +17,11 @@ Objective:
 Ensure that VPC and EKS are already provisioned.
 
 - Use [create_cluster](scripts/00-create_cluster.sh) script to provision them if they have not been provisioned already. 
-- After the provisioning, run the command from to_configure_kubectl output to make sure cli is connected to EKS cluster. 
+- After the provisioning, note down the values from Outputs. Run the command from to_configure_kubectl output to make sure cli is connected to EKS cluster. 
+
+![Configure kubectl](../images/to-configure-kubectl.png).
+
+![Check Configuration](../images/after-configuring-kubectl.png).
 
 ## Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
 
@@ -72,12 +76,35 @@ A pod requests storage via a PVC -> Kubernetes calls the EBS CSI driver -> The d
 Objectives:
 
 - Create a trust policy file for the EBS CSI Driver IAM Role.
-- Create an IAM Role and attach the AmazonEBSCSIDriverPolicy managed policy. AmazonEBSCSIDriverPolicy: AWS IAM managed policy that grants the permissions needed for the Amazon EBS CSI driver to manage Amazon EBS volumes on behalf of Kubernetes clusters.
+- Create an IAM Role (AmazonEKS_EBS_CSI_DriverRole_retail-dev-eks) and attach the AmazonEBSCSIDriverPolicy managed policy. AmazonEBSCSIDriverPolicy: AWS IAM managed policy that grants the permissions needed for the Amazon EBS CSI driver to manage Amazon EBS volumes on behalf of Kubernetes clusters.
 - Create a Pod Identity Association for the EBS CSI controller ServiceAccount.
-- Install the Amazon EBS CSI Driver add-on using AWS CLI.
+- Install the Amazon EBS CSI Driver add-on (aws-ebs-csi-driver) using AWS CLI.
 - Verify installation using kubectl.
 
 Run the [EBS CSI Driver script](scripts/06-Install_EBS_CSI_driver.sh).
+
+```bash
+
+List of Roles and Policies that should be available by this step: 
+
+For secrets:
+
+catalog-db-secret-policy
+catalog-db-secrets-role
+
+For EBS:
+
+AmazonEBSCSIDriverPolicy (Managed policy. Not customer created)
+AmazonEKS_EBS_CSI_DriverRole_retail-dev-eks
+
+Addons installed:
+{
+    "addons": [
+        "aws-ebs-csi-driver",
+        "eks-pod-identity-agent"
+    ]
+}
+```
 
 #### Step 7: Connect AWS Secrets Manager with Kubernetes Pods 
 
@@ -85,7 +112,7 @@ We will securely connect AWS Secrets Manager with Catalog microservice pods so t
 
 Run [Connect_AWS_SM_and_Catalog script](scripts/06-Connect_AWS_SM_and_Catalog.sh). 
 
-- Create the secret with MySQL credentials in AWS Secret Manager, 
+- Create the secret (catalog-db-secret-1) with MySQL credentials in AWS Secret Manager, 
 - Define a SecretProviderClass that retrieves this secret using EKS Pod Identity,
 - Update both the MySQL StatefulSet and Catalog Deployment to mount and use these secrets,
 - Retrieve Secret from AWS Secret Manager without storing Kubernetes Secrets in etcd minimizing risk of exposing secrets if the cluster is ever compromised.
@@ -109,8 +136,9 @@ kubectl run mysql-client \
 When inside the pod:
 
 ```bash
-  mysql -h catalog-mysql -u catalog_user -p
+  mysql -h catalog-mysql -u mydbadmin -p
 ```
+Provide the password as mysqldb101. [Refer](catalog_k8s_manifests/03-catalog_configmap.yaml).
 
 Option 2: Use Environment variable
 
@@ -118,8 +146,8 @@ Option 2: Use Environment variable
 kubectl run mysql-client --rm -it \
   --image=mysql:8.0 \
   --restart=Never \
-  --env MYSQL_PWD=yourpassword \
-  -- mysql -h catalog-mysql -u catalog_user
+  --env MYSQL_PWD=mysqldb101 \
+  -- mysql -h catalog-mysql -u mydbadmin
 ```
 
 Run SQL Commands
@@ -127,6 +155,7 @@ Run SQL Commands
 SHOW DATABASES;
 USE catalogdb;
 SHOW TABLES;
+SELECT COUNT(*) FROM products;
 SELECT * FROM products;
 SELECT * FROM tags;
 SELECT * FROM product_tags;
@@ -135,6 +164,38 @@ EXIT;
 #### Step 9: Cleanup
 
 Run [Cleanup script](scripts/08-cleanup_catalog.sh). 
+
+Remember that even after Catalog resources are cleaned up, EBS volume remains until PVC is deleted. 
+
+```bash
+kubectl get pvc
+kubectl get pv
+```
+
+Output:
+```bash
+$ kubectl get pvc
+NAME                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-ebs-catalog-mysql-0   Bound    pvc-ac9d31d2-df43-4e65-9f03-80378fb2aa43   10Gi       RWO            ebs-sc         <unset>                 29m
+
+$ kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                              STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-ac9d31d2-df43-4e65-9f03-80378fb2aa43   10Gi       RWO            Delete           Bound    default/data-ebs-catalog-mysql-0   ebs-sc         <unset>                          29m
+```
+
+Delete PVC manually:
+
+```bash
+kubectl delete pvc data-ebs-catalog-mysql-0 
+```
+Verify using AWS CLI:
+
+```bash
+aws ec2 describe-volumes \
+  --filters "Name=size,Values=10" \
+  --query "Volumes[*].{ID:VolumeId,State:State,Size:Size}" \
+  --output table
+  ```
 
 Run [Destroy Cluster script](scripts/09-destroy_cluster.sh) to destroy EKS and VPC.
 
