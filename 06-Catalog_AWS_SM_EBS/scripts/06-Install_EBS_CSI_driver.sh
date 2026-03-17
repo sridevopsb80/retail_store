@@ -5,7 +5,7 @@ echo "==============================="
 
 
 export AWS_REGION="us-east-1"
-export EKS_CLUSTER_NAME="retail-dev-eksdemo1"
+export EKS_CLUSTER_NAME="retail-dev-eks"
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
 # Confirm values
@@ -111,7 +111,7 @@ echo
 echo " Done "
 
 echo 
-echo " Verify Installation "
+echo " Verify Addon Installation "
 
 # List EKS add-ons (after install)
 aws eks list-addons --cluster-name ${EKS_CLUSTER_NAME}
