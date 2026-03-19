@@ -10,7 +10,7 @@ Catalog microservice:
 Objective: 
 
 - Secrets for Catalog microservice will not be stored in EKS etcd. Secrets will be obtained from AWS Secret Manager and will be loaded as Volumes to pods using Secrets Store CSI Driver and ASCP. This is to mitigate risk in case EKS is compromised.
-- Catalog DB storage will use RDS MySQL DB. Provisiniong in this section will be manual. All steps listed will be for manual provisioning.
+- Catalog DB storage will use RDS MySQL DB. **Provisining in this section will be manual**. All steps listed will be for manual provisioning.
 
 ## Pre-requisite: VPC and EKS 
 
