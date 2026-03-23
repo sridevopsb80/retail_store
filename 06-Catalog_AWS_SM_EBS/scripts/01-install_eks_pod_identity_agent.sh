@@ -1,5 +1,5 @@
 echo "==============================="
-echo "Set Environment variables"
+echo "Setting Environment Variables"
 echo "==============================="
 
 export AWS_REGION="us-east-1"

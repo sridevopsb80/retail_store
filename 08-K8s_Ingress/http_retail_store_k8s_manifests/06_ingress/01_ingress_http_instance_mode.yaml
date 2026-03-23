@@ -22,7 +22,7 @@ spec:
   ingressClassName: alb 
   defaultBackend:
     service:
-      name: ui-np
+      name: ui-np # refer ui nodeport service yaml
       port:
         number: 80                  
       

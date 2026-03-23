@@ -1,6 +1,6 @@
 
 echo "==============================="
-echo "Set Environment Variables"
+echo "Setting Environment Variables"
 echo "==============================="
 
 

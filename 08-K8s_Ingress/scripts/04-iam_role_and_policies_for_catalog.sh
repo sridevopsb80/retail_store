@@ -1,5 +1,5 @@
 echo "==============================="
-echo "Set environment variables "
+echo "Setting Environment Variables "
 echo "==============================="
 
 export AWS_REGION="us-east-1"
@@ -84,9 +84,9 @@ aws iam create-role \
   --assume-role-policy-document file://trust-policy.json
 
 
-echo "==============================="
+echo "==========================================="
 echo "Attach the IAM policy to IAM Role"
-echo "==============================="
+echo "==========================================="
 
 echo
 echo " Attaching the IAM policy to IAM Role"
@@ -95,9 +95,9 @@ aws iam attach-role-policy \
   --policy-arn arn:aws:iam::${AWS_ACCOUNT_ID}:policy/catalog-db-secret-policy
 
 
-echo "==============================="
+echo "==========================================="
 echo "Listing Attached Policies to IAM Role"
-echo "==============================="
+echo "==========================================="
 
 # Verify attachment
 aws iam list-attached-role-policies --role-name catalog-db-secrets-role

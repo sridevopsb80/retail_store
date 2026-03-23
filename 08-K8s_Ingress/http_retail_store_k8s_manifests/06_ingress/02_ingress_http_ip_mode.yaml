@@ -22,7 +22,7 @@ spec:
   ingressClassName: alb 
   defaultBackend:
     service:
-      name: ui
+      name: ui # refer ui clusterip service yaml
       port:
         number: 80                  
       

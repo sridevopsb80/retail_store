@@ -1,6 +1,6 @@
-echo "==============================="
+echo "==================================================================="
 echo "Install the Secrets Store CSI Driver in the kube-system namespace"
-echo "==============================="
+echo "==================================================================="
 
 echo
 echo " Installing CSI Driver "
@@ -8,9 +8,9 @@ helm install csi-secrets-store \
   secrets-store-csi-driver/secrets-store-csi-driver \
   --namespace kube-system
 
-echo "==============================="
+echo "==============================================================================="
 echo "Install AWS Secrets Manager CSI Driver Provider in the kube-system namespace"
-echo "==============================="
+echo "==============================================================================="
 
 echo
 echo " Installing ASCP "

@@ -1,5 +1,5 @@
 echo "==============================="
-echo "Set environment variables "
+echo "Setting Environment Variables "
 echo "==============================="
 
 # Set environment variable
