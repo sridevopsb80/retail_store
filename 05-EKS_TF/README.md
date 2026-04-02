@@ -44,45 +44,22 @@ kubectl get nodes
 # List Kubernetes Pods 
 kubectl get pods -n kube-system
 ```
-## Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
 
-### Step 1: Create EKS Pod Identity Agent
+# Installing EKS Cluster AddOns using Terraform on EKS Cluster
 
-Pod Identity Agent is deployed as a daemonset. It will run on every node and provide pods running in those nodes with the access they need.
+## Following Addons will be added to the EKS Cluster with Terraform:
 
-* Go to AWS Console -> EKS -> Clusters -> Get Add ons -> Locate Pod Identity Agent plugin -> choose and leave default options -> click on Create.
+* AWS Load Balancer Controller (LBC) - automatically provisions and manages Load Balancers (ALB/NLB) when Kubernetes resources such as Ingress and LoadBalancer Service are defined. Refer tf files 13_01 till 13_04.
+* Amazon EBS CSI Driver - dynamically provisions Amazon EBS volumes for StatefulSets. Refer tf files 14_01 till 14_03.
+* Secrets Store CSI Driver (with ASCP) - mounts AWS Secrets Manager / SSM Parameter Store secrets directly into Pods (with ASCP). Refer tf files 15_01 and 15_02.
+* EKS Pod Identity Agent - allows Pods to assume IAM Roles (for secure access to AWS Services). By using IAM Roles, services can be accessed securely without storing credentials locally. Refer tf files 12_01 and 12_02.
 
-* Use kubectl get ds command to verify the agent was installed.
+## Execution Flow:
 
-This section will be done manually for verification.
+* Create VPC Infrastructure (refer Section-04) and EKS Infrastructure using Terraform. Use create_cluster.sh script in scripts folder to create VPC and EKS. 
+* Install Addons to EKS.
 
-### Step 2: Install Helm locally and add helm repos for CSI Driver and AWS Provider plugin ASCP
 
-[Ensure that Helm CLI is installed.](https://helm.sh/docs/intro/install/)
-
-Run [Helm script to add the repos and to update them](scripts/helm.sh).
-
-Workflow: Pod -> Secrets Store CSI Driver -> AWS Provider Plugin (ASCP) -> AWS Secrets Manager.
-
-Secrets Store CSI Driver - Kubernetes driver that allows pods to mount secrets from external secret stores as volumes.
-
-AWS Secrets and Configuration Provider (ASCP): AWS provider plugin for the CSI driver. CSI driver itself doesn't know how to talk to secret systems.  It needs a provider plugin so that it can fetch secrets from AWS Secrets Manager.
-
-### Step 3: Install the Secrets Store CSI Driver and ASCP using Helm in EKS kube-system namespace 
-
-Run [Script to install CSI driver and ASCP to kube-system namespace in EKS Cluster](scripts/install_csi_driver_and_ascp.sh).
-
-### Step 4: Create IAM Role, Policy and EKS Pod Identity Association
-
-Run [IAM bash script](scripts/iam_role_and_policies.sh). This creates all necessary resources for **Catalog microservice only**.
-
-### Step 5: Create Pod Identity Association
-
-Run [PIA script](scripts/pod_identity_association.sh). 
-
-### Step 6: Connect AWS Secrets Manager with Kubernetes Pods 
-
-We will securely connect AWS Secrets Manager with Catalog microservice pods so that credentials to MySQL DB can be shared. In this zero-trust setup, credentials are not stored in Kubernetes Secrets and are fetched dynamically via ASCP.
 
 
 
