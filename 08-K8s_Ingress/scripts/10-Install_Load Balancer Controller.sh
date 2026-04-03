@@ -21,8 +21,7 @@ cd ../iam-policy-json-files
 curl -o aws-load-balancer-controller-policy.json \
 https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 
-# Create IAM Policy
-
+# Create IAM Policy in IAM
 aws iam create-policy \
   --policy-name AWSLoadBalancerControllerIAMPolicy_${EKS_CLUSTER_NAME} \
   --policy-document file://aws-load-balancer-controller-policy.json
