@@ -47,9 +47,9 @@ EOF
 echo 
 echo " Done "
 
-echo "==============================="
+echo "==================================================================="
 echo "Create IAM Role and Attach AmazonEBSCSIDriverPolicy Policy"
-echo "==============================="
+echo "==================================================================="
 
 echo 
 echo " Creating IAM Role "

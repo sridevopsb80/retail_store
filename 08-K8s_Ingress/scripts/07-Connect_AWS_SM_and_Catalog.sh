@@ -6,9 +6,9 @@ echo "==============================="
 export AWS_REGION="us-east-1"
 
 
-echo "==============================="
+echo "==========================================="
 echo "Create Secret in AWS Secrets Manager"
-echo "==============================="
+echo "==========================================="
 # Create Secret 
 aws secretsmanager create-secret \
   --name catalog-db-secret-1 \

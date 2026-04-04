@@ -1,5 +1,5 @@
 echo "==============================="
-echo "Set Environment variables"
+echo "Setting Environment Variables"
 echo "==============================="
 
 export AWS_REGION="us-east-1"
@@ -12,7 +12,7 @@ echo $EKS_CLUSTER_NAME
 echo $AGENT_VERSION
 
 echo "==============================="
-echo "Create EKS Pod-Identity Agent"
+echo "Creating EKS Pod-Identity Agent"
 echo "==============================="
 
 aws eks create-addon \

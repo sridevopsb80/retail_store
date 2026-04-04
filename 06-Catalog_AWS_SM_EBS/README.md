@@ -152,6 +152,7 @@ kubectl run mysql-client --rm -it \
 
 Run SQL Commands
 
+```
 SHOW DATABASES;
 USE catalogdb;
 SHOW TABLES;
@@ -160,6 +161,7 @@ SELECT * FROM products;
 SELECT * FROM tags;
 SELECT * FROM product_tags;
 EXIT;
+```
 
 #### Step 9: Cleanup
 
