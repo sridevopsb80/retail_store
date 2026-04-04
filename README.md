@@ -11,4 +11,4 @@ Notes:
 
 Architecture:
 
-![Retail Store](../images/architecture.png).
+![Retail Store](images/architecture.png).
