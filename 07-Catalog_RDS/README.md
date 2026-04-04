@@ -1,5 +1,7 @@
 # Implement Catalog Microservice using AWS Secret Manager and RDS
 
+Implementing Catalog microservice with RDS. RDS implementation is done manually to test.
+
 Catalog microservice:
 
 - contains a deployment that manages the application pods,
