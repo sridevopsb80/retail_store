@@ -8,7 +8,7 @@ metadata:
     alb.ingress.kubernetes.io/load-balancer-name: retail-store-http-ip-mode
     # Ingress Core Settings
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/target-type: ip # ip mode
     # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
