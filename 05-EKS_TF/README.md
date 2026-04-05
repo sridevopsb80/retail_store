@@ -23,6 +23,12 @@ terraform apply
 
 Alternatively, execute scripts/create-cluster.sh script to create VPC and EKS cluster.
 
+Use [create_cluster](scripts/create_cluster.sh) script to provision them if they have not been provisioned already. 
+
+If you run into "Error locating Chart" error, update the helm repo.
+
+![Error locating Chart](../images/error_locating_chart.jpg)
+
 ## Configure kubectl cli to access EKS cluster
 
 After the EKS Cluster is created, get the "to_configure_kubectl" value from the output. This gives the command which should enable you to connect to your cluster.
