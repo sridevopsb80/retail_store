@@ -17,11 +17,15 @@ Objective:
 Ensure that VPC and EKS are already provisioned.
 
 - Use [create_cluster](scripts/00-create_cluster.sh) script to provision them if they have not been provisioned already. 
+- If you run into "Error locating Chart" error, update the helm repo.
+
+![Error locating Chart](../images/error_locating_chart.jpg)
+
 - After the provisioning, note down the values from Outputs. Run the command from to_configure_kubectl output to make sure cli is connected to EKS cluster. 
 
-![Configure kubectl](../images/to-configure-kubectl.png).
+![Configure kubectl](../images/to-configure-kubectl.png)
 
-![Check Configuration](../images/after-configuring-kubectl.png).
+![Check Configuration](../images/after-configuring-kubectl.png)
 
 ## Create EKS Pod Identity Agent, Install Secrets Store CSI Driver and ASCP using Helm
 
