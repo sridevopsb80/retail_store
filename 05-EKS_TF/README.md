@@ -60,6 +60,8 @@ kubectl get pods -n kube-system
 * Secrets Store CSI Driver (with ASCP) - mounts AWS Secrets Manager / SSM Parameter Store secrets directly into Pods (with ASCP). Refer tf files 15_01 and 15_02.
 * EKS Pod Identity Agent - allows Pods to assume IAM Roles (for secure access to AWS Services). By using IAM Roles, services can be accessed securely without storing credentials locally. Refer tf files 12_01 and 12_02.
 
+![Installation Verification](../images/eks_addon_verification.jpg)
+
 ## Execution Flow:
 
 * Create VPC Infrastructure (refer Section-04) and EKS Infrastructure using Terraform. Use create_cluster.sh script in scripts folder to create VPC and EKS. 
