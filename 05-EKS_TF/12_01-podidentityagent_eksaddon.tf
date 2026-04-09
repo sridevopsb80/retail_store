@@ -3,23 +3,24 @@
 # Datasource: To get default EKS addon version compatible with EKS cluster version
 data "aws_eks_addon_version" "pia_default" {
   addon_name         = "eks-pod-identity-agent"
-  kubernetes_version = aws_eks_cluster.main.version
+  kubernetes_version = aws_eks_cluster.main.version # gets default version
 }
 
 # Datasource: To get latest EKS addon version compatible with EKS cluster version
 data "aws_eks_addon_version" "pia_latest" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.main.version
-  most_recent        = true
+  most_recent        = true # gets the latest version
 }
 
 # Refer https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon
 
 # EKS Addon: Pod Identity Agent
 resource "aws_eks_addon" "podidentity" {
-  depends_on = [aws_eks_node_group.private_nodes]  # refer 09-eks_nodegroup
+  depends_on = [aws_eks_node_group.private_nodes]  # node group needs to be present for pia to be installed
   cluster_name                = aws_eks_cluster.main.id
   addon_name                  = "eks-pod-identity-agent"
+  # overwrite existing config while creating and updating
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
   # Use the latest EKS addon version compatible with the cluster's Kubernetes version

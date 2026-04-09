@@ -13,7 +13,7 @@ data "aws_eks_addon_version" "ebs_csi_latest" {
   most_recent        = true
 }
 
-# Resource: Install EBS CSI Driver addon
+# Install EBS CSI Driver addon
 resource "aws_eks_addon" "ebs_csi" {
   depends_on = [
     aws_iam_role.ebs_csi_iam_role,

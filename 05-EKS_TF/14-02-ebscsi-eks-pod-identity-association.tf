@@ -1,6 +1,6 @@
-# provision ebs csi driver related resources for ebs volume administration
+# provisions ebs csi driver related resources for ebs volume administration
 
-# Resource: EKS Pod Identity Association for EBS CSI Driver
+# EKS Pod Identity Association for EBS CSI Driver
 resource "aws_eks_pod_identity_association" "ebs_csi" {
   cluster_name    = aws_eks_cluster.main.name
   namespace       = "kube-system"

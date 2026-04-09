@@ -1,18 +1,18 @@
 # Create IAM Role for LBC, IAM Policy for LBC Role and attach them
 
-# Resource: Create AWS Load Balancer Controller IAM Policy 
+# Create AWS Load Balancer Controller IAM Policy 
 resource "aws_iam_policy" "lbc_iam_policy" {
   name        = "${local.name}-AWSLoadBalancerControllerIAMPolicy"
   path        = "/"
   description = "AWS Load Balancer Controller IAM Policy"
-  policy = data.http.lbc_iam_policy.response_body # obtained from data source in previous file
+  policy = data.http.lbc_iam_policy.response_body # obtained from data source in 13-01
 }
 
 output "lbc_iam_policy_arn" {
   value = aws_iam_policy.lbc_iam_policy.arn 
 }
 
-# Resource: Create IAM Role 
+# Create IAM Role 
 resource "aws_iam_role" "lbc_iam_role" {
   name = "${local.name}-lbc-iam-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json # allows eks to assume iam role using pia
@@ -24,7 +24,7 @@ resource "aws_iam_role" "lbc_iam_role" {
   }
 }
 
-# Associate Load Balanacer Controller IAM Policy to  IAM Role
+# Associate Load Balanacer Controller IAM Policy to IAM Role
 resource "aws_iam_role_policy_attachment" "lbc_iam_role_policy_attach" {
   policy_arn = aws_iam_policy.lbc_iam_policy.arn 
   role       = aws_iam_role.lbc_iam_role.name
