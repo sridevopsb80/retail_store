@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 echo "==============================="
 echo "Create Pod Identity Association"
 echo "==============================="

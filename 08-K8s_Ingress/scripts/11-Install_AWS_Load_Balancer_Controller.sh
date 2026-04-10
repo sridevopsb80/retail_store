@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 echo "==========================================="
 echo "Adding Helm Repo for eks charts and Update"
 echo "==========================================="

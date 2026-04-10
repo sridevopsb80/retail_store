@@ -27,6 +27,8 @@ helm install secrets-provider-aws \
 # Verification steps - Enable if necessary
 #########################
 
+#!/bin/bash
+# set -e
 
 # echo
 # echo " Listing Helm releases in the kube-system namespace "

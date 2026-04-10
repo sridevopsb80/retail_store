@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 echo "==================================================================="
 echo "Adding Helm Repositories for CSI Driver and AWS Provider"
 echo "==================================================================="

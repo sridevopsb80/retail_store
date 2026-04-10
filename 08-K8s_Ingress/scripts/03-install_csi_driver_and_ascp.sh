@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 echo "==================================================================="
 echo "Install the Secrets Store CSI Driver in the kube-system namespace"
 echo "==================================================================="
