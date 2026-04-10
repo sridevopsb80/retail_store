@@ -5,7 +5,7 @@ echo "==========================================="
 echo "Applying all HTTPS manifests"
 echo "==========================================="
 
-kubectl apply -R -f ../https_retail_store_k8s_manifests/
+kubectl apply -R -f ../manifests/https_retail_store_k8s_manifests/
 
 echo "==========================================="
 echo "Display Ingress from all namespaces"

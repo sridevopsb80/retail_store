@@ -4,12 +4,12 @@ set -e
 echo "================="
 echo "Delete HTTP Ingress"
 echo "================="
-kubectl delete -R -f http_retail_store_k8s_manifests
+kubectl delete -R -f ../manifests/http_retail_store_k8s_manifests
 
 echo "================="
 echo "Delete HTTPS Ingress"
 echo "================="
-kubectl delete -R -f http_retail_store_k8s_manifests
+kubectl delete -R -f ../manifests/http_retail_store_k8s_manifests
 
 # # List nodes
 # kubectl get nodes
