@@ -33,11 +33,11 @@ This should provision the VPC, EKS and the necessary EKS Add-ons.
 
 ![Check Configuration](../images/after-configuring-kubectl.png)
 
-## Deploy HTTP Ingress
+## Deploy HTTP Ingress and microservices
 
 Run [Deploy http ingress](scripts/12-Deploy_http_ingress.sh) script.
 
-## Deploy HTTPS Ingress
+## Deploy HTTPS Ingress and microservices
 
 Steps involved:
 
