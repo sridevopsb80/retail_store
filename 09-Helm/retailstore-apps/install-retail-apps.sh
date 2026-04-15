@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-echo "--------------------------------------------"
-echo "Authenticating to Amazon Public ECR for Helm..."
-echo "--------------------------------------------"
+# echo "--------------------------------------------"
+# echo "Authenticating to Amazon Public ECR for Helm..."
+# echo "--------------------------------------------"
 
-# Authenticate to Amazon Public ECR (token valid for 12 hours)
-aws ecr-public get-login-password --region us-east-1 | \
-helm registry login -u AWS --password-stdin public.ecr.aws
-sleep 5
+# # Authenticate to Amazon Public ECR (token valid for 12 hours)
+# aws ecr-public get-login-password --region us-east-1 | \
+# helm registry login -u AWS --password-stdin public.ecr.aws
+# sleep 5
 
 echo "--------------------------------------------"
 echo "Starting Helm installs for Retail Store Sample App..."
