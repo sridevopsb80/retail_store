@@ -18,7 +18,7 @@
 # authenticate with AWS to retrieve secrets.
 
 resource "aws_eks_pod_identity_association" "catalog" {
-  cluster_name    = data.terraform_remote_state.eks.outputs.eks_cluster_name # refer c03_02
+  cluster_name    = data.terraform_remote_state.eks.outputs.eks_cluster_name # refer 4-eks_remote_state
   namespace       = "default"
   service_account = "catalog"
   role_arn        = aws_iam_role.catalog_getsecrets.arn
