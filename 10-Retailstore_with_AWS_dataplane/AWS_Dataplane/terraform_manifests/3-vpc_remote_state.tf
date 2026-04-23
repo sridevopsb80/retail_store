@@ -1,13 +1,13 @@
 # --------------------------------------------------------------------
-# Reference the Remote State from VPC Project
+# Reference the Remote State from VPC section (Refer 03-VPC_Tf or 04-VPC_TF_modules)
 # --------------------------------------------------------------------
 data "terraform_remote_state" "vpc" {
   backend = "s3"
 
   config = {
-    bucket = "tfstate-dev-us-east-1-jpjtof"     # Name of the remote S3 bucket where the VPC state is stored
+    bucket = "tfstate-dev-us-east-1-zfwwag"     # Name of the remote S3 bucket where VPC state is stored (refer 02)
     key    = "vpc/dev/terraform.tfstate"        # Path to the VPC tfstate file within the bucket
-    region = var.aws_region                    # Region where the S3 bucket exist
+    region = var.aws_region                     # Region where the S3 bucket exist
   }
 }
 
