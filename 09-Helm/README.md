@@ -1,4 +1,6 @@
-# Implement retailstore with Helm
+# Implement Retailstore with Helm
+
+Note: RetailStore Application is implemented with Persistent Dataplane running on AWS EKS using Helm. AWS Services are not used for Dataplane in this section.
 
 ## Deploy http ingress
 
