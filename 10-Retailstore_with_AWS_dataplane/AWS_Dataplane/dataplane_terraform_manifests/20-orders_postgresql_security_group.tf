@@ -4,7 +4,7 @@ resource "aws_security_group" "rds_postgresql_sg" {
   name        = "${local.name}-rds-postgresql-sg"
   description = "Allow RDS PostgreSQL access from EKS cluster"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
-
+# inbound - allow traffic from eks to rds only
   ingress {
     description      = "Allow RDS PostgreSQL from EKS Cluster"
     from_port        = 5432
@@ -12,7 +12,7 @@ resource "aws_security_group" "rds_postgresql_sg" {
     protocol         = "tcp"
     security_groups  = [data.terraform_remote_state.eks.outputs.eks_cluster_security_group_id]
   }
-
+# outbound - allow all
   egress {
     from_port   = 0
     to_port     = 0

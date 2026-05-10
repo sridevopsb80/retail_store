@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-mysql
+spec:
+  type: ExternalName
+  externalName: mydb3.cxojydmxwly6.us-east-1.rds.amazonaws.com 
+  # replace with terraform output of catalog_rds_endpoint from dataplane_terraform_manifests
+  ports:
+    - port: 3306

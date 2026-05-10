@@ -34,7 +34,7 @@ resource "aws_iam_policy" "cart_dynamodb_policy" {
 # IAM Role for Cart microservice (Pod Identity Role)
 resource "aws_iam_role" "cart_dynamodb_role" {
   name               = "${local.name}-cart-dynamodb-role"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json # refer c05_01
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json # refer 6-podidentity_assumerole_policy
 
   tags = {
     Name        = "${local.name}-cart-dynamodb-role"

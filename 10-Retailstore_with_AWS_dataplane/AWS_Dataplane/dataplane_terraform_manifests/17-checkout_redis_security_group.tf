@@ -2,7 +2,7 @@ resource "aws_security_group" "redis_sg" {
   name        = "${local.name}-redis-sg"
   description = "Allow EKS cluster to access ElastiCache Redis"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
-
+# inbound - allow traffic from eks only to redis port
   ingress {
     from_port                = 6379
     to_port                  = 6379
@@ -10,6 +10,7 @@ resource "aws_security_group" "redis_sg" {
     security_groups          = [data.terraform_remote_state.eks.outputs.eks_cluster_security_group_id] # sg of eks
     description              = "Allow traffic from EKS cluster SG"
   }
+  # outbound - allow all
   egress {
     from_port = 0
     to_port   = 0

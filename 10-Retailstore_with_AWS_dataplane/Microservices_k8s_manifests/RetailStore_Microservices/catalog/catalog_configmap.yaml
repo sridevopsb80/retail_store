@@ -4,5 +4,5 @@ metadata:
   name: catalog
 data:
   RETAIL_CATALOG_PERSISTENCE_PROVIDER: mysql
-  RETAIL_CATALOG_PERSISTENCE_ENDPOINT: catalog-mysql:3306
+  RETAIL_CATALOG_PERSISTENCE_ENDPOINT: catalog-mysql:3306 # points to external nameservice. alternatively, catalog_rds_endpoint url can be used here
   RETAIL_CATALOG_PERSISTENCE_DB_NAME: catalogdb
